@@ -1,6 +1,6 @@
 # MV-Coach-Eval
 
-[![CI](https://github.com/yourusername/mv-coach-eval/workflows/CI/badge.svg)](https://github.com/yourusername/mv-coach-eval/actions)
+[![CI](https://github.com/Venkatchavan/MV-Coach-Eval/workflows/CI/badge.svg)](https://github.com/Venkatchavan/MV-Coach-Eval/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 
@@ -36,8 +36,8 @@ This is not a model script. This is a **modular ML evaluation system**.
 
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/mv-coach-eval.git
-cd mv-coach-eval
+git clone https://github.com/Venkatchavan/MV-Coach-Eval.git
+cd MV-Coach-Eval
 
 # Install dependencies
 make install
@@ -185,7 +185,7 @@ If you use MV-Coach-Eval in your research, please cite:
   title={MV-Coach-Eval: Production-grade HAR Benchmarking Platform},
   author={MV-Coach-Eval Team},
   year={2026},
-  url={https://github.com/yourusername/mv-coach-eval}
+  url={https://github.com/Venkatchavan/MV-Coach-Eval}
 }
 ```
 

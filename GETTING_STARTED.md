@@ -15,8 +15,8 @@ This guide will help you get started with the MV-Coach-Eval platform.
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/mv-coach-eval.git
-cd mv-coach-eval
+git clone https://github.com/Venkatchavan/MV-Coach-Eval.git
+cd MV-Coach-Eval
 
 # Install dependencies
 make install
