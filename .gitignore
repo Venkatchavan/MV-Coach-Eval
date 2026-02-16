@@ -50,7 +50,7 @@ multirun/
 # Experiments
 experiments/
 model_registry/
-data/
+/data/
 
 # Logs
 *.log

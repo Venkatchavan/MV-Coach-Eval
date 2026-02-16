@@ -1,0 +1,8 @@
+# @package _global_
+
+# UCI HAR dataset configuration
+data:
+  name: uci_har
+  batch_size: 64
+  num_workers: 4
+  data_dir: ./data/uci_har
