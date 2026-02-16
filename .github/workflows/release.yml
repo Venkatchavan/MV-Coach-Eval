@@ -1,0 +1,67 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Extract version from tag
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Verify version consistency
+        run: |
+          VERSION=$(python -c "from mv_coach.core.version import __version__; print(__version__)")
+          if [ "$VERSION" != "${{ steps.get_version.outputs.VERSION }}" ]; then
+            echo "Version mismatch: tag=${{ steps.get_version.outputs.VERSION }}, code=$VERSION"
+            exit 1
+          fi
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip build
+          pip install -e ".[dev]"
+
+      - name: Run tests
+        run: |
+          pytest tests/ --cov=mv_coach
+
+      - name: Build package
+        run: |
+          python -m build
+
+      - name: Build and push Docker image
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: |
+          docker build -t mv-coach-eval:${{ steps.get_version.outputs.VERSION }} .
+          docker tag mv-coach-eval:${{ steps.get_version.outputs.VERSION }} mv-coach-eval:latest
+          echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+          docker push mv-coach-eval:${{ steps.get_version.outputs.VERSION }}
+          docker push mv-coach-eval:latest
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            dist/*
+          body: |
+            Release ${{ steps.get_version.outputs.VERSION }}
+
+            ## Changes
+            See [CHANGELOG.md](CHANGELOG.md) for details.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,10 @@
+# @package _global_
+
+# TCN (Temporal Convolutional Network) model configuration
+model:
+  name: tcn
+  input_channels: 6  # 3 accel + 3 gyro
+  num_classes: 6
+  hidden_dim: 128
+  dropout: 0.2
+  num_layers: 3

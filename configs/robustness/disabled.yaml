@@ -1,0 +1,8 @@
+# @package _global_
+
+# Robustness testing disabled
+robustness:
+  enabled: false
+  gaussian_noise_std: []
+  axis_dropout_prob: []
+  modality_dropout_prob: []
